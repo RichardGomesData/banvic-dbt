@@ -1,7 +1,7 @@
 with 
-    clientes as (
+    agencias as (
         select *
-        from {{ ref('stg_erp__clientes') }}
+        from {{ ref('stg_erp__agencias') }}
 
     )
 
@@ -10,21 +10,18 @@ with
         from {{ ref('stg_erp__localidades') }}
 
     )
-    , clientes_enriquecido as (
+    , agencias_enriquecido as (
             select 
-                clientes.pk_cliente
-                , clientes.nome_cliente
-                , clientes.email_cliente
-                , clientes.tipo_cliente
-                , clientes.cpfcnpj_cliente
-                , clientes.ts_inclusao
-                , clientes.data_nascimento_cliente
-                , clientes.endereco_cliente
-                , clientes.ceo_cliente
-                , localidades.cidade as cidede_cliente
-                , localidades.uf as uf_cliente
-            from clientes
-            left join localidades on clientes.fk_localidade = localidades.pk_localidade
+                agencias.pk_agencia
+                , agencias.fk_localidade
+                , agencias.nome_agencia
+                , agencias.endereco_agencia
+                , agencias.data_abertura_agencia
+                , agencias.tipo_agencia
+                , localidades.cidade as cidede_agencia
+                , localidades.uf as uf_agencia
+            from agencias
+            left join localidades on agencias.fk_localidade = localidades.pk_localidade
     )
 select *
-from clientes_enriquecido
+from agencias_enriquecido

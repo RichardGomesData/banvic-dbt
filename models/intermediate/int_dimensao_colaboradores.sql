@@ -1,7 +1,7 @@
 with 
-    clientes as (
+    colaboradores as (
         select *
-        from {{ ref('stg_erp__clientes') }}
+        from {{ ref('stg_erp__colaboradores') }}
 
     )
 
@@ -10,21 +10,32 @@ with
         from {{ ref('stg_erp__localidades') }}
 
     )
-    , clientes_enriquecido as (
+
+        , colaborador_agencia as (
+        select *
+        from {{ ref('stg_erp__colaborador_agencia') }}
+
+    )
+    , colaboradores_enriquecido as (
             select 
-                clientes.pk_cliente
-                , clientes.nome_cliente
-                , clientes.email_cliente
-                , clientes.tipo_cliente
-                , clientes.cpfcnpj_cliente
-                , clientes.ts_inclusao
-                , clientes.data_nascimento_cliente
-                , clientes.endereco_cliente
-                , clientes.ceo_cliente
-                , localidades.cidade as cidede_cliente
-                , localidades.uf as uf_cliente
-            from clientes
-            left join localidades on clientes.fk_localidade = localidades.pk_localidade
+                colaboradores.pk_colaborador
+                , colaboradores.fk_localidade
+                , colaboradores.nome_colaborador
+                , colaboradores.email_colaborador
+                , colaboradores.cpf_colaborador
+                , colaboradores.data_nascimento_colaborador
+                , colaboradores.endereco_colaborador
+                , colaboradores.cep_colaborador
+                , colaboradores.cod_gerente
+                , localidades.cidade as cidede_colaborador
+                , localidades.uf as uf_colaborador
+                , colaborador_agencia.fk_agencia as agencia_colaborador
+            from colaboradores
+            left join localidades 
+            on colaboradores.fk_localidade = localidades.pk_localidade
+            
+            left join colaborador_agencia 
+            on colaboradores.pk_colaborador = colaborador_agencia.fk_colaborador
     )
 select *
-from clientes_enriquecido
+from colaboradores_enriquecido
