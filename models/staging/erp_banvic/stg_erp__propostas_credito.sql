@@ -8,17 +8,17 @@ with
 
     , renomeado as (
         select 
-            cod_proposta
-            , cod_cliente
-            , cod_colaborador
-            , data_entrada_proposta
-            , taxa_juros_mensal
-            , valor_proposta
-            , valor_financiamento
-            , valor_entrada
-            , valor_prestacao
-            , quantidade_parcelas
-            , carencia
+            cast (cod_proposta as int) as pk_proposta
+            , cast (cod_cliente as int) as fk_cliente
+            , cast (cod_colaborador as int) as fk_colaborador
+            , cast (data_entrada_proposta as timestamp) as ts_data_entrada_proposta
+            , cast(taxa_juros_mensal as decimal(8,4)) as taxa_juros_mensal
+            , cast (valor_proposta as decimal(18,2)) as valor_proposta
+            , cast (valor_financiamento as decimal(18,2)) as valor_financiamento
+            , cast (valor_entrada as decimal(18,2)) as valor_entrada
+            , cast (valor_prestacao as decimal(18,2)) as valor_prestacao
+            , cast (quantidade_parcelas as int) as quantidade_parcelas
+            , cast (carencia as int) as carencia 
             , status_proposta
         from fonte_propostas_credito
     )

@@ -9,10 +9,10 @@ with
     , renomeado as (
         select 
             cod_agencia as pk_agencia
-            , nome
-            , endereco
-            , cod_localidade
-            , data_abertura
+            , cod_localidade as fk_localidade
+            , nome as nome_agencia
+            , endereco as endereco_agencia
+            , cast (data_abertura as date) as data_abertura_agencia
             , tipo_agencia
         from fonte_agencias
     )
