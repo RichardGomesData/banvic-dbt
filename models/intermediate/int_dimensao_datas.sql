@@ -14,7 +14,9 @@ criar_datas as (
 
 select
     cast(date_day as date) as pk_data
+
     , extract(day from date_day) as dia
+
     , case extract(dow from date_day)
         when 1 then 'domingo'
         when 2 then 'segunda-feira'
@@ -24,6 +26,7 @@ select
         when 6 then 'sexta-feira'
         when 7 then 'sábado'
       end as dia_semana_nome
+
     , case extract(month from date_day)
         when 1 then 'janeiro'
         when 2 then 'fevereiro'
@@ -38,12 +41,20 @@ select
         when 11 then 'novembro'
         when 12 then 'dezembro'
       end as mes
+
     , extract(year from date_day) as ano
+
     , concat('T', extract(quarter from date_day)) as trimestre_nome
+
     , case 
         when extract(dow from date_day) in (1,7) then true
         else false
       end as is_final_de_semana
+
+    , case 
+        when extract(day from date_day) % 2 = 1 then true
+        else false
+      end as is_dia_impar
 
 from date_spine
 
