@@ -1,20 +1,31 @@
 with
-    fonte_transacoes as (
-        select *
-        from {{ source('erp', 'transacoes') }}
 
-    )
+fonte_transacoes as (
 
+    select *
+    from {{ source('erp', 'transacoes') }}
 
-    , renomeado as (
-        select 
-            cod_transacao as pk_transacao
-            , cast (num_conta as int) as fk_num_conta
-            , cast (data_transacao as timestamp) as data_transacao
-            , cast (nome_transacao as string) as nome_transacao
-            , cast(valor_transacao as decimal(18,2)) as valor_transacao
-        from fonte_transacoes
-    )
+),
+
+renomeado as (
+
+    select
+        cast(cod_transacao as int) as pk_transacao
+        , cast(num_conta as int) as fk_conta
+        , cast(cod_transacao as int) as numero_transacao
+        , cast(data_transacao as date) as data_transacao
+        , cast(data_transacao as timestamp) as ts_transacao
+        , nome_transacao
+        , case
+            when cast (valor_transacao as float) > 0 then 'Crédito'
+            when cast (valor_transacao as float) < 0 then 'Débito'
+            else null
+          end as tipo_transacao
+        , cast(valor_transacao as numeric(28,2)) as valor_transacao
+
+    from fonte_transacoes
+
+)
 
 select *
 from renomeado

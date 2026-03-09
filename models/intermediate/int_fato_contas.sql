@@ -8,10 +8,10 @@ with
     , selecionar_colunas as (
         select 
             
-            pk_num_conta
-            , fk_cod_cliente
-            , fk_cod_agencia
-            , fk_cod_colaborador
+            pk_conta
+            , fk_cliente
+            , fk_agencia
+            , fk_colaborador
             , saldo_total
             , saldo_disponivel
             , ts_data_ultimo_lancamento

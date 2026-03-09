@@ -13,7 +13,8 @@ with date_spine as (
 criar_datas as (
 
 select
-    cast(date_day as date) as pk_data
+    row_number() over(order by date_day) as pk_data
+    , cast(date_day as date) as data_completa
 
     , extract(day from date_day) as dia
 
