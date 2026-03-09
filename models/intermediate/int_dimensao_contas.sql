@@ -8,7 +8,7 @@ with
     , selecionar_colunas as (
         select 
             
-            pk_num_conta
+            pk_conta
             , tipo_conta
             , ts_data_abertura
         from contas

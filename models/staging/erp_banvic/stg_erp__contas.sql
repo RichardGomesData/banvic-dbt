@@ -8,10 +8,10 @@ with
 
     , renomeado as (
         select 
-            cast (num_conta as int) as pk_num_conta
-            , cast (cod_cliente as int) as fk_cod_cliente
-            , cast (cod_agencia as int) as fk_cod_agencia
-            , cast (cod_colaborador as int) as fk_cod_colaborador
+            cast (num_conta as int) as pk_conta
+            , cast (cod_cliente as int) as fk_cliente
+            , cast (cod_agencia as int) as fk_agencia
+            , cast (cod_colaborador as int) as fk_colaborador
             , cast (tipo_conta as string) as tipo_conta
             , cast (data_abertura as timestamp) as ts_data_abertura
             , cast(saldo_total as decimal(18,2)) as saldo_total
